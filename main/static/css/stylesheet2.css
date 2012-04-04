@@ -284,10 +284,31 @@ text-align: center;
 
 /*////////////////////////////////////////////////////////////////////////////*/
 
+.comment {
+	padding-top : 100px;
+	padding-left: 240px;
+	padding-right: 350px;
+	text-align: justify;
+	background-color: white;
+	font-family: georgia;
+}
+
+.commentTitle { 
+	display : inline;
+	padding: 20px;
+	padding-left : 0px;
+	font-style : italic;
+}
+
+.commentText {
+padding: 10px;
+padding-left: 0px;
+}
 
 
 
 
+/*////////////////////////////////////////////////////////////////////////////*/
 
 #filterbtn {
 	position:absolute;

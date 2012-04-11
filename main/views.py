@@ -34,24 +34,44 @@ def upload(request):
 
 @csrf_exempt
 def uploadImages(request):
+    print(request.COOKIES)
+    print("shit0\n")
     if request.method == "POST":
+        print("shit1\n")
+#        sid = request.POST['sessionid']
+#        print(sid)
+#        session = request.session
+#        session._set_session_key(sid)
+#        session._get_session()
         image = CommonImage()
+        print("shit2\n")
         image.img.save(
-            "patata.jpg",
+            request.FILES['Filedata'].name,
             request.FILES['Filedata'],
             save=True
         )
+        print("shit3\n")
     
-    print("shit2\n")
+    print("shit\n")
     
-    t = loader.get_template("upload.html")
-    c = RequestContext(request)
-    return HttpResponse(t.render(c))
+    response = HttpResponse()
+    response.write("hola\r\n")
+    return response
     
 def step2(request):
-    t = loader.get_template('step2.html')
-    c = RequestContext(request)
-    return HttpResponse(t.render(c))
+    if request.method == "POST":
+        return HttpResponse("asdf")
+    else:    
+        images = CommonImage.objects.all()
+        
+        if images.exists():
+            for image in images:
+                print(str(image.img)+"\n")
+        else:
+            images = "asdf"
+        t = loader.get_template('step2.html')
+        c = RequestContext(request, {'images':images})
+        return HttpResponse(t.render(c))
     
 def step3(request):
     t = loader.get_template('step3.html')

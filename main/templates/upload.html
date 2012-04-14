@@ -5,69 +5,49 @@
 <script type="text/javascript" src="{{STATIC_URL}}js/uploadify/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="{{STATIC_URL}}js/uploadify/swfobject.js"></script>
 <script type="text/javascript" src="{{STATIC_URL}}js/uploadify/jquery.uploadify.v2.1.4.js"></script>
-<script type="text/javascript" src="{{STATIC_URL}}js/jquery.cookies.2.2.0.min.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}js/jquery.jform.js"></script>
+
 <script type="text/javascript">
+	function loadBackgroundList(){
+		$('#background_list').load('/background_list', function(){
+			
+			$("a.delete_background_image").click(function(event) {
+				event.preventDefault();
+				$(this).hide();
+				$(this).next(".loading_img").show();
+				$.post( $(this).attr("href"));
+				loadBackgroundList();
+			});
+			
+		});
+		
+	}
+	
 	
 	$(document).ready(function() {
-		  $('#background_upload').uploadify({
-		    'uploader'  : '{{STATIC_URL}}js/uploadify/uploadify.swf',
-		    'script'    : 'http://localhost:8000/uploadImages/',
+		$('#background_upload').uploadify({
+			'uploader'  : '{{STATIC_URL}}js/uploadify/uploadify.swf',
+		    'script'    : 'http://localhost:8000/upload_images/',
 		    'cancelImg' : '{{STATIC_URL}}js/uploadify/cancel.png',
 		    'folder'    : '{{STATIC_URL}}js/uploads',
-		    'auto'      : false,
+		    'auto'      : true,
 		    'multi'     : true,
 		    'fileExt'   : '*.jpg;*.jpeg;*.png;*.gif',
-		    //'onSelect'  : $('#file_uploadQueue').append('<label>Description for this file:</label> <input type="text" name="description_1" id="filedescr_1" />'),
-			'fileDesc'  : 'Images',
-		    'queueSizeLimit' : 3,
-		    /*
-		    'onError': function (event, queueID ,fileObj, errorObj) {
-	            var msg;
-	            if (errorObj.status == 404) {
-	               alert('Could not find upload script. Use a path relative to: '+'<?= getcwd() ?>');
-	               msg = 'Could not find upload script.';
-	            } else if (errorObj.type === "HTTP")
-	               msg = errorObj.type+": "+errorObj.info;
-	            else if (errorObj.type ==="File Size")
-	               msg = fileObj.name+'<br>'+errorObj.type+' Limit: '+Math.round(errorObj.sizeLimit/1024)+'KB';
-	            else
-	               msg = errorObj.type+": "+errorObj.text;
-	            alert(msg);
-	            $("#fileUpload" + queueID).fadeOut(250, function() { $("#fileUpload" + queueID).remove()});
-	            return false;
-	            },*/
-	
-		  });
-		  $('#photo_upload').uploadify({
-			    'uploader'  : '{{STATIC_URL}}js/uploadify/uploadify.swf',
-			    'script'    : 'http://localhost:8000/uploadImages/',
-			    'cancelImg' : '{{STATIC_URL}}js/uploadify/cancel.png',
-			    'folder'    : '{{STATIC_URL}}js/uploads',
-			    'auto'      : true,
-			    'multi'     : true,
-			    'fileExt'   : '*.jpg;*.jpeg;*.png;*.gif',
-			    'onSelect'  : $('#file_uploadQueue').append('<label>Description for this file:</label> <input type="text" name="description_1" id="filedescr_1" />'),
-				'fileDesc'  : 'Images',
-			    'queueSizeLimit' : 3,
-			    /*
-			    'onError': function (event, queueID ,fileObj, errorObj) {
-		            var msg;
-		            if (errorObj.status == 404) {
-		               alert('Could not find upload script. Use a path relative to: '+'<?= getcwd() ?>');
-		               msg = 'Could not find upload script.';
-		            } else if (errorObj.type === "HTTP")
-		               msg = errorObj.type+": "+errorObj.info;
-		            else if (errorObj.type ==="File Size")
-		               msg = fileObj.name+'<br>'+errorObj.type+' Limit: '+Math.round(errorObj.sizeLimit/1024)+'KB';
-		            else
-		               msg = errorObj.type+": "+errorObj.text;
-		            alert(msg);
-		            $("#fileUpload" + queueID).fadeOut(250, function() { $("#fileUpload" + queueID).remove()});
-		            return false;
-		            },*/
-
-			  });
+		    'fileDesc'  : 'Images',
+		    'queueSizeLimit' : 6,
+		    'onSelect' : function(){
+		    	//alert("hi");
+		    },
+		    'scriptData': {'name': 'name01'},
+		    'onAllComplete' : function(){
+		    	loadBackgroundList();
+		    }
+		});
+		
+		loadBackgroundList();
 	});
+	
+	
 	
 </script>
 
@@ -79,11 +59,11 @@
 <section id="content">
 	<h2>Background upload</h2>
 	<input id="background_upload" type="file" name="Filedata" />
-	<a href="javascript:$('#background_upload').uploadifyUpload();">Upload Files</a>
+	<!-- <a href="javascript:$('#background_upload').uploadifyUpload();">Upload Files</a> -->
 	
-	<h2>Photo upload</h2>
-	<input id="photo_upload" type="file" name="photo_upload" />
-	<a href="javascript:$('#photo_upload').uploadifyUpload();">Upload Files</a>
+	<div id="background_list">
+		
+	</div>
 </section>
 {% endblock %}
 

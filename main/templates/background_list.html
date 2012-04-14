@@ -1,0 +1,44 @@
+<script type="text/javascript">
+	
+	$(document).ready(function() {
+		
+		
+		$(".background_image_form").hide();
+		
+		$(".edit_background_image").click(function(){
+			$(this).parent().hide();
+			$(this).parent().next(".background_image_form").show();
+				
+		});
+		
+		$(".cancel_button").click(function(){
+			$(".background_image_form").hide();
+			$(".background_image_data").show();
+			return false;
+				
+		});
+		
+	});
+	
+</script>
+
+{% for image,form in backgrounds %}
+	<div class="background_element_container">
+		<div class="background_image_container">
+			<img class="background_image" src="{{MEDIA_URL}}{{image.img}}" alt="alt" />
+		</div>
+		
+		<div class="background_image_data">
+			<span>{{image.name}}</span>
+			<img class="edit_background_image" src="{{STATIC_URL}}img/edit.png" alt="Edit" />
+			<a class="delete_background_image" href="/delete_background_image/{{image.id}}/"><img src="{{STATIC_URL}}img/delete.gif" alt="Delete" /></a>
+			<img class="loading_img" src="{{STATIC_URL}}img/loading_small.gif" />
+		</div>
+		
+		<form class="background_image_form" action="/edit_background_image/" method="post">{% csrf_token %}
+			{{ form.as_p }}
+			<input type="submit" value="Save" />
+			<button class="cancel_button">Cancel</button>
+		</form>
+	</div>
+{% endfor %}

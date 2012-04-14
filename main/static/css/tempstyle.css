@@ -4,4 +4,43 @@
 	margin: 40px auto;
 	padding: 30px;
 	background-color: lightgray;	
+	overflow: auto;
 }
+
+#background_list {
+	margin-top: 30px;
+}
+
+.background_element_container {
+	float: left;
+	margin: 0px 50px 50px 0px;
+	height: 250px;
+}
+
+.background_image_container {
+	width: 200px;
+	height: 180px;
+	
+	padding: 5px;
+	background-color: white;
+	border: 1px solid #bebebe;
+	display: block;
+	margin-bottom: 10px;
+	text-align: center;
+	
+}
+
+.background_image{
+	max-width: 200px;
+	max-height: 180px;
+	
+}
+
+.edit_background_image:hover, .delete_background_image:hover {
+	cursor:pointer;
+}
+
+.loading_img {
+	display: none;
+}
+

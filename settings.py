@@ -50,12 +50,13 @@ USE_L10N = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT =  os.path.join(PWD, "main/media/")
+MEDIA_ROOT = "E:/University/Design of WWW Services/Project/wdys/main/media"  
+#os.path.join(PWD, "main/media/")
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = '/media/'
+MEDIA_URL = 'http://localhost:8000/media/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
@@ -158,4 +159,6 @@ LOGGING = {
 FIXTURE_DIRS = (
     "E:/University/Design of WWW Services/Project/wdys/main/fixtures",
     os.path.join(PWD, "main/fixtures/"),                
-)                
+)  
+
+              

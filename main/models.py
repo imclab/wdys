@@ -7,15 +7,16 @@ class City(models.Model):
     name = models.URLField(max_length=30)
 
 class CommonImage(models.Model):
-    img = models.ImageField(upload_to="images/")
     #city = models.ForeignKey(City)
-    #class Meta:
-    #    abstract = True
+    class Meta:
+        abstract = True
     
-class CityImage(models.Model):
-    description = models.TextField()
+class BackgroundImage(models.Model):
+    img = models.ImageField(upload_to="backgroundimg")
+    name = models.CharField(max_length=30, blank=True)
    
-class SceneImage(CityImage):
+class PhotoImage(CommonImage):
+    img = models.ImageField(upload_to="photoimg")
     name = models.CharField(max_length=30)
     tags = models.ManyToManyField(Tag)
     date = models.DateField()

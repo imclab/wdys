@@ -1,5 +1,6 @@
 from django.conf.urls.defaults import patterns, url, include
 from main import views
+from django.conf import settings
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -19,8 +20,20 @@ urlpatterns = patterns('',
     url(r'^make/$', views.make),
     url(r'^comment/$', views.comment),
     url(r'^upload/$', views.upload),
-    url(r'^uploadImages/$', views.uploadImages),
+    url(r'^upload_images/$', views.upload_images),
     url(r'^step2/$', views.step2),
     url(r'^step3/$', views.step3),
     url(r'^publish/$', views.publish),
+    url(r'^background_list/$', views.background_list),
+    url(r'^delete_background_image/(\d+)/$', views.delete_background_image),
+    url(r'^edit_background_image/$', views.edit_background_image),
+    
+    
+)
+
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
+            'document_root': settings.MEDIA_ROOT,
+        }),
 )

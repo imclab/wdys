@@ -3,7 +3,7 @@ from django.forms import ModelForm
 from models import BackgroundImage
 
 class BackgroundImageForm(ModelForm):
-    image_id = forms.IntegerField(widget=forms.HiddenInput)
+    #image_id = forms.IntegerField(widget=forms.HiddenInput)
     class Meta:
         model = BackgroundImage
         exclude = ('img')  

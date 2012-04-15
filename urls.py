@@ -26,7 +26,7 @@ urlpatterns = patterns('',
     url(r'^publish/$', views.publish),
     url(r'^background_list/$', views.background_list),
     url(r'^delete_background_image/(\d+)/$', views.delete_background_image),
-    url(r'^edit_background_image/$', views.edit_background_image),
+    url(r'^edit_background_image/(\d+)/$', views.edit_background_image),
     
     
 )

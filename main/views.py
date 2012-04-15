@@ -58,12 +58,16 @@ def delete_background_image(request, image_id):
         image.delete()
     return HttpResponse("Delete completed\r\n")  
 
-
-def edit_background_image(request):
+@csrf_exempt
+def edit_background_image(request, image_id):
     if request.method == "POST":
-        form = BackgroundImageForm(request.POST)
+        image = BackgroundImage.objects.get(pk=image_id)
+        form = BackgroundImageForm(request.POST, instance=image)
         if form.is_valid():
-            print(request.POST)
+            form.save()
+            print("form saved\n")
+        else:
+            print("not valid\n")
     return HttpResponse("Edit completed\r\n")       
 
 
@@ -72,8 +76,9 @@ def background_list(request):
     images = BackgroundImage.objects.all()
     forms = []
     for image in images:
-        forms.append(BackgroundImageForm(instance=image))
-        print(image.name)
+        #form = BackgroundImageForm(instance=image, initial={'image_id': image.id})
+        form = BackgroundImageForm(instance=image)
+        forms.append(form)
     zipped_images = zip(images,forms)    
     c = RequestContext(request, {'backgrounds':zipped_images})
     t = loader.get_template('background_list.html')

@@ -19,10 +19,10 @@
 				loadBackgroundList();
 			});
 			
-			$('.background_image_form .save_button').click(function(event){
-				event.preventDefault();
-				$.post($(this).parent().attr("action"), $(this).parent().serialize());
+			$('.background_image_form').submit(function(){
+				$.post($(this).attr("action"), $(this).serialize());
 				loadBackgroundList();
+				return false;
 			});
 			
 		});

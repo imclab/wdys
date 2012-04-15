@@ -46,7 +46,7 @@ def upload_images(request):
         files = request.FILES
         print(files)
         
-        image = BackgroundImage(name="name02")
+        image = BackgroundImage(name=request.FILES["Filedata"].name)
         image.img.save(request.FILES["Filedata"].name, request.FILES["Filedata"])
     
     return HttpResponse("Upload completed\r\n")

@@ -37,10 +37,8 @@
 		
 		<form class="background_image_form" action="/edit_background_image/{{image.id}}/" method="post">{% csrf_token %}
 			{{ form.as_p }}
-			<!--  <input type="submit" value="Save" />  -->
-			<button class="save_button">Save</button>
+			<input type="submit" value="Save" />
 			<button class="cancel_button">Cancel</button>
-			
 		</form>
 	</div>
 {% endfor %}

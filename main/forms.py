@@ -1,12 +1,18 @@
 from django import forms
 from django.forms import ModelForm
-from models import BackgroundImage
+from models import BackgroundImage, PictureImage
 
 class BackgroundImageForm(ModelForm):
     #image_id = forms.IntegerField(widget=forms.HiddenInput)
     class Meta:
         model = BackgroundImage
-        exclude = ('img')  
+        exclude = ('img')
+        
+class PictureImageForm(ModelForm):
+    #image_id = forms.IntegerField(widget=forms.HiddenInput)
+    class Meta:
+        model = PictureImage
+        exclude = ('img')           
 
 
 #from wdys.main.models import CityImage

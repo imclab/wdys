@@ -1,18 +1,18 @@
 # Create your views here.
 from django.http import HttpResponse
 from django.template import RequestContext, loader
-from models import Tag, BackgroundImage
+from models import Tag, BackgroundImage, PictureImage
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files import File
 from django.views.decorators.csrf import csrf_exempt
-from forms import BackgroundImageForm
+from forms import BackgroundImageForm, PictureImageForm
 from django.shortcuts import render_to_response
 import traceback
 
 def main(request):
+    images = PictureImage.objects.all()
     t = loader.get_template('main.html')
-    indexes = range(1,13)
-    c = RequestContext(request, { 'indexes': indexes })
+    c = RequestContext(request, { 'images': images })
     return HttpResponse(t.render(c))
 
 def make(request):
@@ -31,25 +31,31 @@ def comment(request):
     c = RequestContext(request)
     return HttpResponse(t.render(c))
 
-def upload(request):
-    
-    c = RequestContext(request)
-    
-        
-    t = loader.get_template("upload.html")
-    return HttpResponse(t.render(c))
+@csrf_exempt
+def upload_background(request):
+    if request.method == "POST":
+        index = request.FILES["Filedata"].name.rfind(".");
+        image = BackgroundImage(name=request.FILES["Filedata"].name[0:index])
+        image.img.save(request.FILES["Filedata"].name, request.FILES["Filedata"])
+        return HttpResponse("Upload completed\r\n") 
+    else:
+        c = RequestContext(request)
+        t = loader.get_template("upload_background.html")
+        return HttpResponse(t.render(c))
 
 @csrf_exempt
-def upload_images(request):
+def upload_picture(request):
     if request.method == "POST":
-       
-        files = request.FILES
-        print(files)
-        
-        image = BackgroundImage(name=request.FILES["Filedata"].name)
+        print("PODST\n")
+        index = request.FILES["Filedata"].name.rfind(".");
+        image = PictureImage(name=request.FILES["Filedata"].name[0:index])
         image.img.save(request.FILES["Filedata"].name, request.FILES["Filedata"])
+        return HttpResponse("Upload completed\r\n") 
+    else:
+        c = RequestContext(request)
+        t = loader.get_template("upload_picture.html")
+        return HttpResponse(t.render(c))    
     
-    return HttpResponse("Upload completed\r\n")
 
 @csrf_exempt
 def delete_background_image(request, image_id):
@@ -82,6 +88,39 @@ def background_list(request):
     zipped_images = zip(images,forms)    
     c = RequestContext(request, {'backgrounds':zipped_images})
     t = loader.get_template('background_list.html')
+    return HttpResponse(t.render(c))
+
+@csrf_exempt
+def delete_picture_image(request, image_id):
+    image = PictureImage.objects.get(pk=image_id)
+    if image is not None:
+        image.delete()
+    return HttpResponse("Delete completed\r\n")  
+
+@csrf_exempt
+def edit_picture_image(request, image_id):
+    if request.method == "POST":
+        image = PictureImage.objects.get(pk=image_id)
+        form = PictureImageForm(request.POST, instance=image)
+        if form.is_valid():
+            form.save()
+            print("form saved\n")
+        else:
+            print("not valid\n")
+    return HttpResponse("Edit completed\r\n")  
+
+def picture_list(request):
+    #render_to_response("background_list.html");
+    images = PictureImage.objects.all()
+    print(images)
+    forms = []
+    for image in images:
+        #form = BackgroundImageForm(instance=image, initial={'image_id': image.id})
+        form = PictureImageForm(instance=image)
+        forms.append(form)
+    zipped_images = zip(images,forms)    
+    c = RequestContext(request, {'pictures':zipped_images})
+    t = loader.get_template('picture_list.html')
     return HttpResponse(t.render(c))
     
 def step2(request):

@@ -7,10 +7,9 @@
 <script type="text/javascript" src="{{STATIC_URL}}js/uploadify/jquery.uploadify.v2.1.4.js"></script>
 <script type="text/javascript" src="{{STATIC_URL}}js/jquery.jform.js"></script>
 
-{% block javascript %}
 <script type="text/javascript">
 	function loadBackgroundList(){
-		$('#background_list').load('/background_list', function(){
+		$('#background_list').load('/background_list/', function(){
 			
 			$("a.delete_background_image").click(function(event) {
 				event.preventDefault();
@@ -35,7 +34,7 @@
 	$(document).ready(function() {
 		$('#background_upload').uploadify({
 			'uploader'  : '{{STATIC_URL}}js/uploadify/uploadify.swf',
-		    'script'    : 'http://localhost:8000/background_upload/',
+		    'script'    : 'http://localhost:8000/upload_background/',
 		    'cancelImg' : '{{STATIC_URL}}js/uploadify/cancel.png',
 		    'folder'    : '{{STATIC_URL}}js/uploads',
 		    'auto'      : true,

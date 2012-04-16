@@ -7,23 +7,22 @@
 <script type="text/javascript" src="{{STATIC_URL}}js/uploadify/jquery.uploadify.v2.1.4.js"></script>
 <script type="text/javascript" src="{{STATIC_URL}}js/jquery.jform.js"></script>
 
-{% block javascript %}
 <script type="text/javascript">
-	function loadBackgroundList(){
-		$('#background_list').load('/background_list', function(){
+	function loadPictureList(){
+		$('#picture_list').load('/picture_list/', function(){
 			
-			$("a.delete_background_image").click(function(event) {
+			$("a.delete_picture_image").click(function(event) {
 				event.preventDefault();
 				$(this).hide();
 				$(this).next(".loading_img").show();
 				$.post( $(this).attr("href"));
-				loadBackgroundList();
+				loadPictureList();
 			});
 			
-			$('.background_image_form').submit(function(){
+			$('.picture_image_form').submit(function(){
 				$(this).children('input[type="submit"]').val("Saving");
 				$.post($(this).attr("action"), $(this).serialize());
-				loadBackgroundList();
+				loadPictureList();
 				return false;
 			});
 			
@@ -33,9 +32,9 @@
 	
 	
 	$(document).ready(function() {
-		$('#background_upload').uploadify({
+		$('#picture_upload').uploadify({
 			'uploader'  : '{{STATIC_URL}}js/uploadify/uploadify.swf',
-		    'script'    : 'http://localhost:8000/background_upload/',
+		    'script'    : 'http://localhost:8000/upload_picture/',
 		    'cancelImg' : '{{STATIC_URL}}js/uploadify/cancel.png',
 		    'folder'    : '{{STATIC_URL}}js/uploads',
 		    'auto'      : true,
@@ -48,11 +47,11 @@
 		    },
 		    'scriptData': {'name': 'name01'},
 		    'onAllComplete' : function(){
-		    	loadBackgroundList();
+		    	loadPictureList();
 		    }
 		});
 		
-		loadBackgroundList();
+		loadPictureList();
 	});
 	
 	
@@ -65,12 +64,10 @@
 
 {% block content %}
 <section id="content">
-	<h2>Background upload</h2>
-	<input id="background_upload" type="file" name="Filedata" />
+	<h2>Picture upload</h2>
+	<input id="picture_upload" type="file" name="Filedata" />
 	<!-- <a href="javascript:$('#background_upload').uploadifyUpload();">Upload Files</a> -->
-	
-	<div id="background_list">
-		
+	<div id="picture_list">
 	</div>
 </section>
 {% endblock %}

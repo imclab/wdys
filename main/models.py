@@ -3,20 +3,20 @@ from django.db import models
 class Tag(models.Model):
     name = models.URLField(max_length=30)
     
-class City(models.Model):
-    name = models.URLField(max_length=30)
+#class City(models.Model):
+#    name = models.URLField(max_length=30)
 
 class CommonImage(models.Model):
-    #city = models.ForeignKey(City)
+    name = models.CharField(max_length=30, blank=True)
+    city = models.CharField(max_length=30, blank=True)
     class Meta:
         abstract = True
     
-class BackgroundImage(models.Model):
+class BackgroundImage(CommonImage):
     img = models.ImageField(upload_to="backgroundimg")
-    name = models.CharField(max_length=30, blank=True)
+    description = models.TextField(blank=True)
    
-class PhotoImage(CommonImage):
-    img = models.ImageField(upload_to="photoimg")
-    name = models.CharField(max_length=30)
-    tags = models.ManyToManyField(Tag)
-    date = models.DateField()
+class PictureImage(CommonImage):
+    img = models.ImageField(upload_to="pictureimg")
+    #tags = models.ManyToManyField(Tag)
+    #date = models.DateField()

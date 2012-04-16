@@ -7,18 +7,23 @@
 	overflow: auto;
 }
 
-#background_list {
+#background_list, #picture_list {
 	margin-top: 30px;
 }
 
-.background_element_container {
+.background_element_container, .picture_element_container {
 	float: left;
 	margin: 0px 50px 50px 0px;
-	height: 250px;
+	min-height: 300px;
+	width: 200px;
+	
+	
+	overflow: auto;
+	
 }
 
-.background_image_container {
-	width: 200px;
+.background_image_container, .picture_image_container {
+	width: 180px;
 	height: 180px;
 	
 	padding: 5px;
@@ -28,16 +33,25 @@
 	margin-bottom: 10px;
 	text-align: center;
 	
+	
+	
 }
 
-.background_image{
-	max-width: 200px;
+.background_image, .picture_image{
+	max-width: 180px;
 	max-height: 180px;
 	
 }
 
-.edit_background_image:hover, .delete_background_image:hover {
+.edit_background_image:hover, .delete_background_image:hover,
+.edit_picture_image:hover, .delete_picture_image:hover {
 	cursor:pointer;
+}
+
+.background_image_form textarea{
+	display: block;
+	width: 180px;
+	height: 100px;
 }
 
 .loading_img {

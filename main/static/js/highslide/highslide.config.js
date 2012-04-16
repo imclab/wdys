@@ -4,9 +4,13 @@
 hs.graphicsDir = 'static/js/highslide/graphics/';
 hs.showCredits = false;
 hs.outlineType = 'custom';
-hs.align = 'center';
 hs.dimmingOpacity = 0.75;
-hs.headingOverlay.position = 'leftpanel';
+hs.fadeInOut = true;
+hs.align = 'center';
+hs.useBox = true;
+hs.width = 600;
+hs.height = 400;
+hs.headingEval = 'this.thumb.title';
 
 
 // Add the slideshow controller
@@ -18,7 +22,7 @@ hs.addSlideshow({
 	fixedControls: 'fit',
 	overlayOptions: {
 		className: 'large-dark',
-		opacity: 0.6,
+		opacity: 1,
 		position: 'bottom center',
 		offsetX: 0,
 		offsetY: -15,

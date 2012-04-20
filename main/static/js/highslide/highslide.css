@@ -894,7 +894,7 @@ html>/**/body .highslide-gallery ul img {
 /* The following styles are added by the Highslide Editor                    */
 /*****************************************************************************/
 .highslide-wrapper, .highslide-outline {
-	background: #FFFFFF;
+	background: #000000;
 }
 .highslide img {
 	border: 1px solid #D0D0D0;
@@ -920,14 +920,8 @@ html>/**/body .highslide-gallery ul img {
 	cursor: move;
 }
 .highslide-caption {
-	position: absolute;
-	width: 100%;
-	color: #FFFFFF;
-	font-weight: bold;
-	padding: 5px;
-	padding-right: 0px;
-	padding-bottom: 0px;
-	padding-left: 0px;
+	background-color: #FFFFFF;
+	padding: 20px;
 }
 .highslide-loading {
 	color: black;
@@ -963,18 +957,16 @@ html>/**/body .highslide-gallery ul img {
 	background: #EDEDED;
 	margin: 2px;
 }
+.TWLogo {
+    margin: 2px;
+    position: absolute;
+    right: 160px;
+    top: 32%;
+}
 
 .FBLogo {
-	margin: 2px;
-	position: absolute;
-	top:72%;
-	right:10px;
+    margin: 2px;
+    position: absolute;
+    right: 201px;
+    top: 32%;
 }
-
-.TWLogo {
-	margin: 2px;
-	position: absolute;
-	top:72%;
-	right:60px;
-}
-

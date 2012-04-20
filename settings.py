@@ -50,7 +50,7 @@ USE_L10N = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = "E:/University/Design of WWW Services/Project/wdys/main/media"  
+MEDIA_ROOT = "/home/krajamaa/workspace/WDYStand/src/wdys/main/media"  
 #os.path.join(PWD, "main/media/")
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a

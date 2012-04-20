@@ -9,9 +9,9 @@
 
 <script type="text/javascript">
 	function loadPictureList(){
-		$('#picture_list').load('/picture_list/', function(){
+		$('#image_list').load('/picture_list/', function(){
 			
-			$("a.delete_picture_image").click(function(event) {
+			$("a.delete_image").click(function(event) {
 				event.preventDefault();
 				$(this).hide();
 				$(this).next(".loading_img").show();
@@ -19,7 +19,7 @@
 				loadPictureList();
 			});
 			
-			$('.picture_image_form').submit(function(){
+			$('.image_form').submit(function(){
 				$(this).children('input[type="submit"]').val("Saving");
 				$.post($(this).attr("action"), $(this).serialize());
 				loadPictureList();
@@ -32,7 +32,7 @@
 	
 	
 	$(document).ready(function() {
-		$('#picture_upload').uploadify({
+		$('#image_upload').uploadify({
 			'uploader'  : '{{STATIC_URL}}js/uploadify/uploadify.swf',
 		    'script'    : 'http://localhost:8000/upload_picture/',
 		    'cancelImg' : '{{STATIC_URL}}js/uploadify/cancel.png',
@@ -41,7 +41,7 @@
 		    'multi'     : true,
 		    'fileExt'   : '*.jpg;*.jpeg;*.png;*.gif',
 		    'fileDesc'  : 'Images',
-		    'queueSizeLimit' : 6,
+		    'queueSizeLimit' : 20,
 		    'onSelect' : function(){
 		    	//alert("hi");
 		    },
@@ -65,9 +65,9 @@
 {% block content %}
 <section id="content">
 	<h2>Picture upload</h2>
-	<input id="picture_upload" type="file" name="Filedata" />
+	<input id="image_upload" type="file" name="Filedata" />
 	<!-- <a href="javascript:$('#background_upload').uploadifyUpload();">Upload Files</a> -->
-	<div id="picture_list">
+	<div id="image_list">
 	</div>
 </section>
 {% endblock %}

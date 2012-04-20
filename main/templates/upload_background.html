@@ -9,9 +9,9 @@
 
 <script type="text/javascript">
 	function loadBackgroundList(){
-		$('#background_list').load('/background_list/', function(){
+		$('#image_list').load('/background_list/', function(){
 			
-			$("a.delete_background_image").click(function(event) {
+			$("a.delete_image").click(function(event) {
 				event.preventDefault();
 				$(this).hide();
 				$(this).next(".loading_img").show();
@@ -19,7 +19,7 @@
 				loadBackgroundList();
 			});
 			
-			$('.background_image_form').submit(function(){
+			$('.image_form').submit(function(){
 				$(this).children('input[type="submit"]').val("Saving");
 				$.post($(this).attr("action"), $(this).serialize());
 				loadBackgroundList();
@@ -32,7 +32,7 @@
 	
 	
 	$(document).ready(function() {
-		$('#background_upload').uploadify({
+		$('#image_upload').uploadify({
 			'uploader'  : '{{STATIC_URL}}js/uploadify/uploadify.swf',
 		    'script'    : 'http://localhost:8000/upload_background/',
 		    'cancelImg' : '{{STATIC_URL}}js/uploadify/cancel.png',
@@ -41,7 +41,7 @@
 		    'multi'     : true,
 		    'fileExt'   : '*.jpg;*.jpeg;*.png;*.gif',
 		    'fileDesc'  : 'Images',
-		    'queueSizeLimit' : 6,
+		    'queueSizeLimit' : 20,
 		    'onSelect' : function(){
 		    	//alert("hi");
 		    },
@@ -65,11 +65,9 @@
 {% block content %}
 <section id="content">
 	<h2>Background upload</h2>
-	<input id="background_upload" type="file" name="Filedata" />
+	<input id="image_upload" type="file" name="Filedata" />
 	<!-- <a href="javascript:$('#background_upload').uploadifyUpload();">Upload Files</a> -->
-	
-	<div id="background_list">
-		
+	<div id="image_list">
 	</div>
 </section>
 {% endblock %}

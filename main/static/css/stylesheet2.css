@@ -381,6 +381,14 @@ padding-left: 0px;
   
 }
 
+#gallery ul li .mini {
+	max-width: 100px;
+	
+	padding: 3px 3px 5px 3px;
+	border: 1px solid lightgray;
+	
+}
+
 #gallery ul li .mini:hover{
     cursor:pointer;
 }
@@ -388,11 +396,20 @@ padding-left: 0px;
 
 #gallery ul li:hover .pic {
     /* width and height is how much the picture is going to growth with the effect */
-   width:200px; 
-   height:200px;
+   /*width:200px; 
+   height:200px;*/
    opacity:1; 
    visibility:visible; 
    float:right;
+}
+
+.pic img {
+	max-width: 200px;
+	
+	padding: 5px 5px 5px 5px;
+	border: 1px solid lightgray;
+	background-color: white;
+		
 }
 
 #content2 {

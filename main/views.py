@@ -3,16 +3,16 @@ from django.http import HttpResponse
 from django.template import RequestContext, loader
 from models import Tag, BackgroundImage, PictureImage
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.files import File
 from django.views.decorators.csrf import csrf_exempt
 from forms import BackgroundImageForm, PictureImageForm
-from django.shortcuts import render_to_response
-import traceback
 
 def main(request):
     images = PictureImage.objects.all()
     t = loader.get_template('main.html')
-    c = RequestContext(request, { 'images': images })
+    if images is not None:
+        c = RequestContext(request, { 'images': images })
+    else:
+        c = RequestContext(request)
     return HttpResponse(t.render(c))
 
 def make(request):
@@ -46,7 +46,6 @@ def upload_background(request):
 @csrf_exempt
 def upload_picture(request):
     if request.method == "POST":
-        print("PODST\n")
         index = request.FILES["Filedata"].name.rfind(".");
         image = PictureImage(name=request.FILES["Filedata"].name[0:index])
         image.img.save(request.FILES["Filedata"].name, request.FILES["Filedata"])
@@ -74,28 +73,7 @@ def edit_background_image(request, image_id):
             print("form saved\n")
         else:
             print("not valid\n")
-    return HttpResponse("Edit completed\r\n")       
-
-
-def background_list(request):
-    #render_to_response("background_list.html");
-    images = BackgroundImage.objects.all()
-    forms = []
-    for image in images:
-        #form = BackgroundImageForm(instance=image, initial={'image_id': image.id})
-        form = BackgroundImageForm(instance=image)
-        forms.append(form)
-    zipped_images = zip(images,forms)    
-    c = RequestContext(request, {'backgrounds':zipped_images})
-    t = loader.get_template('background_list.html')
-    return HttpResponse(t.render(c))
-
-@csrf_exempt
-def delete_picture_image(request, image_id):
-    image = PictureImage.objects.get(pk=image_id)
-    if image is not None:
-        image.delete()
-    return HttpResponse("Delete completed\r\n")  
+    return HttpResponse("Edit completed\r\n")
 
 @csrf_exempt
 def edit_picture_image(request, image_id):
@@ -107,7 +85,30 @@ def edit_picture_image(request, image_id):
             print("form saved\n")
         else:
             print("not valid\n")
-    return HttpResponse("Edit completed\r\n")  
+    return HttpResponse("Edit completed\r\n")
+
+
+def background_list(request):
+    #render_to_response("background_list.html");
+    images = BackgroundImage.objects.all()
+    forms = []
+    for image in images:
+        #form = BackgroundImageForm(instance=image, initial={'image_id': image.id})
+        form = BackgroundImageForm(instance=image)
+        forms.append(form)
+    zipped_images = zip(images,forms)    
+    c = RequestContext(request, {'zipped_images':zipped_images})
+    t = loader.get_template('background_list.html')
+    return HttpResponse(t.render(c))
+
+@csrf_exempt
+def delete_picture_image(request, image_id):
+    image = PictureImage.objects.get(pk=image_id)
+    if image is not None:
+        image.delete()
+    return HttpResponse("Delete completed\r\n")  
+
+  
 
 def picture_list(request):
     #render_to_response("background_list.html");
@@ -119,7 +120,7 @@ def picture_list(request):
         form = PictureImageForm(instance=image)
         forms.append(form)
     zipped_images = zip(images,forms)    
-    c = RequestContext(request, {'pictures':zipped_images})
+    c = RequestContext(request, {'zipped_images':zipped_images})
     t = loader.get_template('picture_list.html')
     return HttpResponse(t.render(c))
     

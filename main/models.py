@@ -15,8 +15,15 @@ class CommonImage(models.Model):
 class BackgroundImage(CommonImage):
     img = models.ImageField(upload_to="backgroundimg")
     description = models.TextField(blank=True)
+    def delete(self, *args, **kwargs):
+        self.img.delete()
+        super(BackgroundImage, self).delete(*args, **kwargs)
+        
    
 class PictureImage(CommonImage):
     img = models.ImageField(upload_to="pictureimg")
     #tags = models.ManyToManyField(Tag)
     #date = models.DateField()
+    def delete(self, *args, **kwargs):
+        self.img.delete()
+        super(PictureImage, self).delete(*args, **kwargs)
